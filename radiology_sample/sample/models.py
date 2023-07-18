@@ -3,9 +3,25 @@ from django.db import models
 
 class Sample(models.Model):
     MODALITY_CHOICES = (
-        ("RG", "Rg"),
-        ("CT", "CT"),
-        ("MRI", "MRI"),
+        ("RG", "Рентген"),
+        ("CT", "КТ"),
+        ("MRI", "МРТ"),
+    )
+
+    REGION_OF_INTEREST_CHOICES = (
+        ("HEAD", "Голова"),
+        ("NECK", "Шея"),
+        ("THORAX", "Грудная клетка"),
+        ("ABDOMEN", "Брюшная полость"),
+        ("LIMBS", "Конечности"),
+    )
+
+    SPECIALIZATION_CHOICES = (
+        ("TRAUMA", "Травматология"),
+        ("PHYSICIAN", "Терапия/педиатрия"),
+        ("OTOLARYNGOLOGY", "Оториноларингология"),
+        ("NEUROLOGY", "Неврология"),
+        ("ONCOLOGY", "Онкология"),
     )
 
     title = models.CharField(max_length=256, verbose_name='Заголовок описания',
@@ -13,17 +29,9 @@ class Sample(models.Model):
     text = models.TextField(verbose_name='Текст описания', blank=False, null=False)
     datetime_of_creation = models.DateTimeField(auto_now_add=True)
     datetime_of_change = models.DateTimeField(auto_now=True)
-    modality = models.CharField(max_length=3, choices=MODALITY_CHOICES,
+    modality = models.CharField(verbose_name='Модальность исследования', max_length=50, choices=MODALITY_CHOICES,
                                 default="", blank=False, null=False)
-    region_of_interest = models.ForeignKey('RegionOfInterest', on_delete=models.DO_NOTHING)
-    specialization = models.ForeignKey('Specialization', on_delete=models.DO_NOTHING)
-
-
-class RegionOfInterest(models.Model):
-    title = models.CharField(verbose_name='Название зоны исследования', max_length=50, blank=False, null=False)
-    icon = models.FileField(verbose_name='Иконка зоны исследования', null=False, upload_to='region_of_interest')
-
-
-class Specialization(models.Model):
-    title = models.CharField(verbose_name='Название специализации', max_length=50, blank=False, null=False)
-
+    region_of_interest = models.CharField(verbose_name='Зона исследования', max_length=50,
+                                          choices=REGION_OF_INTEREST_CHOICES, default="", blank=False, null=False)
+    specialization = models.CharField(verbose_name='Специализация', max_length=50, choices=SPECIALIZATION_CHOICES,
+                                      default="", blank=False, null=False)
