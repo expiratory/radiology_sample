@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from .serializers import SampleSerializer
 from .models import Sample
+from django.shortcuts import render
 
 
 class SampleViewSet(GenericViewSet):
@@ -12,15 +13,16 @@ class SampleViewSet(GenericViewSet):
     @action(methods=['get'], detail=False)
     def get_all_samples(self, request):
         samples = Sample.objects.all().values()
-        return Response({'samples': samples})
+        return render(request, 'sample/get_all_samples.html', {'samples': samples})
 
     @action(methods=['get'], detail=True)
-    def get_defined_sample(self, pk, request):
+    def get_defined_sample(self, request, pk):
         try:
             defined_sample = Sample.objects.get(pk=pk)
-            return Response({'defined_sample': SampleSerializer(defined_sample).data})
-        except Sample.DoesNotExist as e:
-            return Response({'message': 'fail', 'description': str(e)})
+            return render(request, 'sample/get_defined_sample.html',
+                          {'defined_sample': SampleSerializer(defined_sample).data})
+        except Exception as e:
+            return render(request, 'sample/error.html', {'message': 'fail', 'description': str(e)})
 
     @action(methods=['post'], detail=False)
     def add_sample(self, request):
@@ -33,12 +35,6 @@ class SampleViewSet(GenericViewSet):
                 region_of_interest=data['region_of_interest'],
                 specialization=data['specialization'],
             )
-            return Response({'sample': SampleSerializer(sample).data})
-        except KeyError as e:
-            return Response({'message': 'fail', 'description': str(e)})
-        except ValueError as e:
-            return Response({'message': 'fail', 'description': str(e)})
-        except TypeError as e:
-            return Response({'message': 'fail', 'description': str(e)})
+            return render(request, 'sample/add_sample.html', {'sample': SampleSerializer(sample).data})
         except Exception as e:
-            return Response({'message': 'fail', 'description': str(e)})
+            return render(request, 'sample/error.html', {'message': 'fail', 'description': str(e)})
