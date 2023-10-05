@@ -147,3 +147,10 @@ footer {
     align-items: center;
     margin-top: 10px;
 }
+
+.filter-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
