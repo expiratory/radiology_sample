@@ -43,11 +43,11 @@ class SampleViewSetTestCase(TestCase):
         Sample.objects.create(title='Another Title', text='Another Text', modality='MRI', region_of_interest='THORAX',
                               specialization='NEUROLOGY')
 
-        response = self.client.get('/api/v1/sample/get_all_samples/', {'title_search': 'Test'})
+        response = self.client.get('/api/v1/sample/get_all_samples/', {'title_search': 'Another Title'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.context['samples']), 1)
 
-        response = self.client.get('/api/v1/sample/get_all_samples/', {'modality_filter': 'RG'})
+        response = self.client.get('/api/v1/sample/get_all_samples/', {'modality_filter': 'MRI'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.context['samples']), 1)
 
