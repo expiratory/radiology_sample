@@ -32,6 +32,8 @@ class SampleViewSet(mixins.ListModelMixin, GenericViewSet):
     def get_all_samples(self, request):
         queryset = Sample.objects.all()
         title_search = request.GET.get('title_search', None)
+        if title_search:
+            title_search = title_search.lower()
         modality_filter = request.GET.get('modality_filter', None)
         region_of_interest_filter = request.GET.get('region_of_interest_filter', None)
         specialization_filter = request.GET.get('specialization_filter', None)
