@@ -4,5 +4,42 @@
 {% endblock %}
 {% block content %}
     <h2 class="centered-text">{{ defined_sample.title }}</h2>
-    <p>{{ defined_sample.text }}</p>
+    <div class="description__container">
+        <p class="description__text" id="descriptionText">{{ defined_sample.text }}</p>
+    </div>
+    <div class="center-container">
+        <button onclick="copyToClipboard()">Копировать текст</button>
+    </div>
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p class="modal-text"></p>
+        </div>
+    </div>
+    <script>
+        var modal = document.getElementById('customModal');
+        var closeButton = document.querySelector('.close-button');
+        var modalText = document.querySelector('.modal-text');
+        closeButton.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        function showModal(message) {
+            modalText.innerHTML = message;
+            modal.style.display = "block";
+        }
+        async function copyToClipboard() {
+            try {
+                const textToCopy = document.getElementById('descriptionText').innerText;
+                await navigator.clipboard.writeText(textToCopy);
+                showModal("Текст скопирован в буфер обмена!");
+            } catch (err) {
+                showModal("Не удалось скопировать текст:<br>" + err);
+            }
+        }
+    </script>
 {% endblock %}

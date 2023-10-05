@@ -15,7 +15,13 @@ class SampleViewSet(GenericViewSet):
     @action(methods=['get'], detail=False)
     def get_all_samples(self, request):
         samples = Sample.objects.all().values()
-        return render(request, 'sample/get_all_samples.html', {'samples': samples})
+        context = {
+            'samples': samples,
+            'MODALITY_CHOICES': Sample.MODALITY_CHOICES,
+            'REGION_OF_INTEREST_CHOICES': Sample.REGION_OF_INTEREST_CHOICES,
+            'SPECIALIZATION_CHOICES': Sample.SPECIALIZATION_CHOICES,
+        }
+        return render(request, 'sample/get_all_samples.html', context)
 
     @action(methods=['get'], detail=True)
     def get_defined_sample(self, request, pk):
