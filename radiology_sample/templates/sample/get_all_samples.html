@@ -5,17 +5,102 @@
 {% endblock %}
 {% block content %}
     <div class="container">
+        <form method="get" action=".">
+            <input type="text" name="title_search" placeholder="Поиск по названию">
+            <select name="modality_filter">
+                <option value="">-- Выберите модальность --</option>
+                {% for code, name in MODALITY_CHOICES %}
+                    <option value="{{ code }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+            <select name="region_of_interest_filter">
+                <option value="">-- Выберите зону интереса --</option>
+                {% for code, name in REGION_OF_INTEREST_CHOICES %}
+                    <option value="{{ code }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+            <select name="specialization_filter">
+                <option value="">-- Выберите специализацию --</option>
+                {% for code, name in SPECIALIZATION_CHOICES %}
+                    <option value="{{ code }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Фильтровать">
+        </form>
         <h2 class="centered-text">Список описаний</h2>
         <table class="sample-table">
             <thead>
                 <tr>
-                    <th>Номер</th>
-                    <th>Заголовок описания</th>
-                    <th>Дата создания</th>
-                    <th>Дата изменения</th>
-                    <th>Модальность исследования</th>
-                    <th>Зона исследования</th>
-                    <th>Специализация</th>
+                    <th>
+                        Номер
+                        {% if ordering == "id" %}
+                            <a href="?ordering=-id">⬇️</a>
+                        {% elif ordering == "-id" %}
+                            <a href="?ordering=id">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=id">↕️</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        Заголовок описания
+                        {% if ordering == "title" %}
+                            <a href="?ordering=-title">⬇️</a>
+                        {% elif ordering == "-title" %}
+                            <a href="?ordering=title">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=title">↕️</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        Дата создания
+                        {% if ordering == "datetime_of_creation" %}
+                            <a href="?ordering=-datetime_of_creation">⬇️</a>
+                        {% elif ordering == "-datetime_of_creation" %}
+                            <a href="?ordering=datetime_of_creation">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=datetime_of_creation">↕️</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        Дата изменения
+                        {% if ordering == "datetime_of_change" %}
+                            <a href="?ordering=-datetime_of_change">⬇️</a>
+                        {% elif ordering == "-datetime_of_change" %}
+                            <a href="?ordering=datetime_of_change">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=datetime_of_change">↕️</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        Модальность исследования
+                        {% if ordering == "modality" %}
+                            <a href="?ordering=-modality">⬇️</a>
+                        {% elif ordering == "-modality" %}
+                            <a href="?ordering=modality">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=modality">↕️</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        Зона исследования
+                        {% if ordering == "region_of_interest" %}
+                            <a href="?ordering=-region_of_interest">⬇️</a>
+                        {% elif ordering == "-region_of_interest" %}
+                            <a href="?ordering=region_of_interest">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=region_of_interest">↕️</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        Специализация
+                        {% if ordering == "specialization" %}
+                            <a href="?ordering=-specialization">⬇️</a>
+                        {% elif ordering == "-specialization" %}
+                            <a href="?ordering=specialization">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=specialization">↕️</a>
+                        {% endif %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
