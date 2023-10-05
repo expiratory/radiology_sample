@@ -27,8 +27,8 @@ class Sample(models.Model):
     title = models.CharField(max_length=256, verbose_name='Заголовок описания',
                              blank=False, null=False)
     text = models.TextField(verbose_name='Текст описания', blank=False, null=False)
-    datetime_of_creation = models.DateTimeField(auto_now_add=True)
-    datetime_of_change = models.DateTimeField(auto_now=True)
+    datetime_of_creation = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    datetime_of_change = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     modality = models.CharField(verbose_name='Модальность исследования', max_length=50, choices=MODALITY_CHOICES,
                                 default="", blank=False, null=False)
     region_of_interest = models.CharField(verbose_name='Зона исследования', max_length=50,

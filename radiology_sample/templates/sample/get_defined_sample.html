@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>get_defined_sample</title>
-</head>
-<body>
-    <h1>Get defined sample</h1>
-</body>
-</html>
+{% extends "sample/base.html" %}
+{% block title %}
+    <title>Описание: {{ defined_sample.title }}</title>
+{% endblock %}
+{% block content %}
+    <h2 class="centered-text">{{ defined_sample.title }}</h2>
+    <p>{{ defined_sample.text }}</p>
+{% endblock %}
