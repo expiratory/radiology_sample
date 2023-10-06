@@ -8,6 +8,7 @@ from django.shortcuts import render
 from .forms import SampleForm
 from django_filters import rest_framework as filters
 from rest_framework import mixins
+from rest_framework.permissions import IsAuthenticated
 
 
 class SampleFilter(filters.FilterSet):
@@ -22,6 +23,7 @@ class SampleFilter(filters.FilterSet):
 
 
 class SampleViewSet(mixins.ListModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Sample.objects.all()
     serializer_class = SampleSerializer
     filter_backends = (filters.DjangoFilterBackend,)

@@ -134,7 +134,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/api/v1/sample/home/'
+LOGIN_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
