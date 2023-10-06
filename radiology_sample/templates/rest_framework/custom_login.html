@@ -1,18 +1,26 @@
 {% extends "sample/base.html" %}
 {% block title %}
-    <title>Регистрация</title>
+    <title>Войти</title>
 {% endblock %}
 {% block content %}
 <div class="container form-container">
-    <h2>Регистрация</h2>
+    <h2>Войти</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <p>
+            <label for="id_username">Имя пользователя:</label>
+            <input type="text" name="username" id="id_username" required>
+        </p>
+        <p>
+            <label for="id_password">Пароль:</label>
+            <input type="password" name="password" id="id_password" required>
+        </p>
         <div class="form-actions">
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit">Войти</button>
         </div>
     </form>
 </div>
+
 <style>
     .form-container {
         background-color: #e6e6e6;
@@ -38,7 +46,6 @@
 
     .form-container form input[type="text"],
     .form-container form input[type="password"],
-    .form-container form input[type="email"],
     .form-container form textarea,
     .form-container form select {
         width: 100%;

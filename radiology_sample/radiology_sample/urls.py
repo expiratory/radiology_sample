@@ -23,6 +23,7 @@ from drf_yasg import openapi
 from rest_framework import routers
 from sample.views import SampleViewSet  # noqa
 from account.views import CreateUserView  # noqa
+from django.contrib.auth.views import LoginView
 
 router = routers.SimpleRouter()
 router.register(r'sample', SampleViewSet)
@@ -43,6 +44,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
+    path('api/v1/auth/login/', LoginView.as_view(template_name='rest_framework/custom_login.html'), name='login'),
     path('api/v1/auth/', include('rest_framework.urls')),
     path('api/v1/', include(router.urls)),
     path('api/v1/registration', CreateUserView.as_view()),

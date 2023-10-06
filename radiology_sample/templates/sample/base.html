@@ -13,15 +13,6 @@
         <div class="container">
             <div class="header-top">
                 <h1>Radiology Sample</h1>
-            </div>
-            <div class="header-bottom">
-                <nav>
-                    <ul>
-                        <li><a href="/">Главная</a></li>
-                        <li><a href="/api/v1/sample/get_all_samples">Все описания</a></li>
-                        <li><a href="/api/v1/sample/add_sample">Добавить описание</a></li>
-                    </ul>
-                </nav>
                 <div class="register-container">
                     <ul>
                         {% if user.is_authenticated %}
@@ -32,6 +23,16 @@
                         {% endif %}
                     </ul>
                 </div>
+            </div>
+            <div class="header-bottom">
+                <nav>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/api/v1/sample/get_all_samples">Все описания</a></li>
+                        <li><a href="/api/v1/sample/add_sample">Добавить описание</a></li>
+                    </ul>
+                </nav>
+
             </div>
         </div>
     </header>

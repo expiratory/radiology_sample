@@ -45,7 +45,7 @@ header h1 {
 
 nav {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-grow: 1;
 }
 
@@ -159,22 +159,11 @@ footer {
     cursor: pointer;
 }
 
-.center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
-
 .filter-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-.register-container {
-    margin-left: auto;
 }
 
 .register-container ul {
@@ -201,4 +190,26 @@ footer {
 
 .register-container ul li a:hover {
     background-color: #555;
+}
+
+.header-top {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 100%;
+}
+
+h1 {
+    grid-column: 2;
+    text-align: center;
+}
+
+.register-container {
+    grid-column: 3;
+    justify-self: end;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
 }
