@@ -2,11 +2,15 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIClient
 from .models import Sample
+from django.contrib.auth import get_user_model
 
 
 class SampleViewSetTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
+        user_model = get_user_model()
+        user = user_model.objects.create(username='testuser', password='testpassword')
+        self.client.force_authenticate(user)
         self.sample_data = {
             'title': 'Test Title',
             'text': 'Test Text',
@@ -57,3 +61,25 @@ class SampleViewSetTestCase(TestCase):
         response = self.client.get('/api/v1/sample/get_all_samples/', {'specialization_filter': 'NEUROLOGY'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.context['samples']), 1)
+
+    def test_get_all_samples_negative(self):
+        self.client.logout()
+        response = self.client.get('/api/v1/sample/get_all_samples/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_add_sample_negative(self):
+        self.client.logout()
+        new_sample_data = {
+            'title': 'New Test Title',
+            'text': 'New Test Text',
+            'modality': 'CT',
+            'region_of_interest': 'NECK',
+            'specialization': 'PHYSICIAN'
+        }
+        response = self.client.post('/api/v1/sample/add_sample/', new_sample_data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_get_defined_sample_negative(self):
+        self.client.logout()
+        response = self.client.get('/api/v1/sample/1/get_defined_sample/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
