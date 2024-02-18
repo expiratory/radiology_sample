@@ -30,7 +30,7 @@
             </form>
         </div>
         <h2 class="centered-text">Список описаний</h2>
-        <table class="sample-table">
+        <table class="sample-table-laptop">
             <thead>
                 <tr>
                     <th>
@@ -117,6 +117,42 @@
                         <td>{{ sample.modality|get_display:MODALITY_CHOICES }}</td>
                         <td>{{ sample.region_of_interest|get_display:REGION_OF_INTEREST_CHOICES }}</td>
                         <td>{{ sample.specialization|get_display:SPECIALIZATION_CHOICES }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <table class="sample-table-mobile">
+            <thead>
+                <tr>
+                    <th>
+                        Заголовок описания
+                        {% if ordering == "title" %}
+                            <a href="?ordering=-title">⬇️</a>
+                        {% elif ordering == "-title" %}
+                            <a href="?ordering=title">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=title">↕️</a>
+                        {% endif %}
+                    </th>
+                    <th>
+                        Модальность исследования
+                        {% if ordering == "modality" %}
+                            <a href="?ordering=-modality">⬇️</a>
+                        {% elif ordering == "-modality" %}
+                            <a href="?ordering=modality">⬆️</a>
+                        {% else %}
+                            <a href="?ordering=modality">↕️</a>
+                        {% endif %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sample in samples %}
+                    <tr>
+                        <td>
+                            <a href="/api/v1/sample/{{ sample.id }}/get_defined_sample">{{ sample.title }}</a>
+                        </td>
+                        <td>{{ sample.modality|get_display:MODALITY_CHOICES }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

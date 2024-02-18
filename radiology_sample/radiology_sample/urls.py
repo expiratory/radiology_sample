@@ -24,6 +24,8 @@ from rest_framework import routers
 from sample.views import SampleViewSet  # noqa
 from account.views import CreateUserView  # noqa
 from django.contrib.auth.views import LoginView
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = routers.SimpleRouter()
 router.register(r'sample', SampleViewSet)
@@ -51,4 +53,4 @@ urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
