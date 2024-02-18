@@ -8,7 +8,7 @@
         <p class="description__text" id="descriptionText">{{ defined_sample.text }}</p>
     </div>
     <div class="center-container">
-        <button onclick="copyToClipboard()">Копировать текст</button>
+        <button id="copyButton" onclick="copyToClipboard()">Копировать текст</button>
     </div>
     <div id="customModal" class="modal">
         <div class="modal-content">
@@ -41,5 +41,14 @@
                 showModal("Не удалось скопировать текст:<br>" + err);
             }
         }
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+        window.onload = function() {
+            if (isSafari()) {
+                var copyButton = document.getElementById('copyButton');
+                copyButton.style.display = 'none';
+            }
+        };
     </script>
 {% endblock %}
