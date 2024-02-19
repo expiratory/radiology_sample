@@ -7,4 +7,5 @@ class SampleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sample
         fields = ('title', 'text', 'datetime_of_creation', 'datetime_of_change',
-                  'modality', 'region_of_interest', 'specialization')
+                  'modality', 'region_of_interest', 'specialization', 'image',
+                  'additional_image')

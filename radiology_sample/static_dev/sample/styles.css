@@ -219,6 +219,21 @@ h1 {
     justify-content: center;
 }
 
+.defined-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    padding-bottom: 40px;
+}
+
+@media (max-width: 770px) {
+    .defined-images {
+        grid-template-columns: none;
+        grid-template-rows: repeat(2, 1fr);
+        gap: 40px;
+    }
+}
+
 @media (max-width: 890px) {
     .sample-table-laptop {
         display: none;

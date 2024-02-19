@@ -35,3 +35,5 @@ class Sample(models.Model):
                                           choices=REGION_OF_INTEREST_CHOICES, default="", blank=False, null=False)
     specialization = models.CharField(verbose_name='Специализация', max_length=50, choices=SPECIALIZATION_CHOICES,
                                       default="", blank=False, null=False)
+    image = models.ImageField(blank=True, null=True, verbose_name='Изображение')
+    additional_image = models.ImageField(blank=True, null=True, verbose_name='Дополнительное изображение')

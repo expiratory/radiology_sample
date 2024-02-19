@@ -7,6 +7,24 @@
     <div class="description__container">
         <p class="description__text" id="descriptionText">{{ defined_sample.text }}</p>
     </div>
+    <div class="defined-images">
+        {% if defined_sample.image %}
+            <img
+              src="{{ defined_sample.image }}"
+              alt="main image"
+              width="350"
+              height="400"
+            >
+        {% endif %}
+        {% if defined_sample.additional_image %}
+            <img
+              src="{{ defined_sample.additional_image }}"
+              alt="additional image"
+              width="350"
+              height="400"
+            >
+        {% endif %}
+    </div>
     <div class="center-container">
         <button id="copyButton" onclick="copyToClipboard()">Копировать текст</button>
     </div>
